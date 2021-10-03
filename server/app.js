@@ -28,12 +28,6 @@ app.use("/auth",auth)
 const User = require('./model/userSchema')
 
 
-
-app.get("/contact" , (req,res) => {
-    // res.cookie("jwttoken" , "sandeep")
-    res.send("This is contact")
-})
-
 app.get("/" , (req,res) => {
     res.send("Hello world")
 })

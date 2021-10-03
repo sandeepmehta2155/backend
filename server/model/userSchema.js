@@ -2,19 +2,28 @@ const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 
+
+
 const userSchema =  new mongoose.Schema({
     username : {
         type : String ,
         required : true
-    } , 
-    email : {
-        type : String ,
-        required : false
     } ,  
-    password : {
-        type : String ,
+   
+    role : {
+        type : String , 
         required : true
-    } , 
+    },
+    createdAT : {
+        type : Date, 
+        default : Date.now,
+        required : true
+    },
+    updatedAt : {
+        type : Date, 
+        default : Date.now,
+        required : true
+    }, 
     tokens : [
         {
             token : {
@@ -25,14 +34,6 @@ const userSchema =  new mongoose.Schema({
     ]
 })
 
-
-userSchema.pre('save' , async function (next) {
-        if(this.isModified('password')){
-            this.password = await bcrypt.hash(this.password ,12);
-        }
-
-        next() 
-})
 
 userSchema.methods.generateAuthToken  = async function(){
   
